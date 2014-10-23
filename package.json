@@ -24,5 +24,8 @@
   },
   "dependencies": {
     "gulp-slim": "0.0.10"
+  },
+  "scripts": {
+    "postinstall": "bower install"
   }
 }
