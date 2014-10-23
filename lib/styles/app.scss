@@ -14,6 +14,18 @@ $zen-columns: 8;
     @include zen-grid-item(3,1);
     background: #ffc;
     overflow: hidden;
+    .cats {
+      @include zen-new-row(left);
+      @include zen-grid-item(4,1);
+    }
+    .more-cats {
+      @include zen-new-row(left);
+      @include zen-grid-item(4,1);
+    }
+    .even-more-cats {
+      @include zen-new-row(left);
+      @include zen-grid-item(4,1);
+    }
   }
   .block-a {
     @include zen-grid-item(4,1,right);
@@ -24,6 +36,11 @@ $zen-columns: 8;
     @include zen-new-row(right);
     @include zen-grid-item(4,1,right);
     background: #ffccff;
+  }
+  .block-c {
+    @include zen-new-row(right);
+    @include zen-grid-item(4,1,right);
+    background: orange;
   }
 }
 
