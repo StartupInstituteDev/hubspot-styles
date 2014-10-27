@@ -17,9 +17,9 @@ var reload = browserSync.reload;
 
 //Paths
 var src = {
-  'css': './lib/styles/*.scss',
-  'js': './lib/js/**/*.js',
-  'html': './lib/templates/*.slim',
+  'css': './src/sass/*.scss',
+  'js': './src/js/**/*.js',
+  'html': './src/templates/*.html',
 };
 var dest = {
   'css': './dist/css/',
@@ -43,7 +43,7 @@ gulp.task('sass', function() {
   gulp.src(src.css)
   .pipe(plumber())
   .pipe(sass({
-    'loadPath': './bower_components/zen-grids/stylesheets/'
+    'loadPath': './bower_components/bootstrap-sass-twbs/assets/stylesheets/'
     }))
   .pipe(autoprefix('last 2 version'))
   .pipe(rename({ suffix: '.min' }))
@@ -54,10 +54,9 @@ gulp.task('sass', function() {
 });
 
 // Process templates
-gulp.task('slim', function() {
+gulp.task('html', function() {
   gulp.src(src.html)
   .pipe(plumber())
-  .pipe(slim())
   .pipe(gulp.dest(dest.html))
   .pipe(reload({stream:true}));
 });
@@ -82,9 +81,9 @@ browserSync({
 });
 
 // Default to build, serve, and watch
-gulp.task('default', ['bowerCSS', 'sass', 'slim', 'js', 'serve'], function() {
+gulp.task('default', ['bowerCSS', 'sass', 'html', 'js', 'serve'], function() {
   gulp.watch(src.css, ['sass']);
-  gulp.watch(src.html, ['slim']);
+  gulp.watch(src.html, ['html']);
   gulp.watch(src.js, ['js']);
   gulp.watch('bower_components', ['bowerCSS']);
 });

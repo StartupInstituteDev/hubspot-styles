@@ -14,8 +14,8 @@
     "test",
     "tests"
   ],
-  "dependencies": {
+  "devDependencies": {
     "normalize.css": "~3.0.2",
-    "zen-grids": "~2.0.0-beta.3"
+    "bootstrap-sass-twbs": "~3.2.0+2"
   }
 }

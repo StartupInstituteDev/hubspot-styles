@@ -1,7 +1,4 @@
-# Gulp Slim SASS Scaffold
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/paulnorthup/gulp-proto?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
- This will get a static site up and running and provide a basic framework from which to move forward.
+# Styles for the Hubspot templates
 
 ##Getting Started
 
@@ -16,10 +13,7 @@ Make sure you have node and gulp installed:
 
 `bower install`
 
-`gem install sass slim` *Without the `slim` gem unhandled errors abound*
+`gem install sass`
 
 ####Go nuts!
-Run `gulp` to get a server going with browser-sync reloading.
-
-Edit in `lib` and let the `dist` build itself as you go. Happy prototyping.
-
+Run `gulp` to get a server going with browser-sync reloading, and start editing files in `./src`.
