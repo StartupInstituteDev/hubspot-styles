@@ -46,8 +46,8 @@ gulp.task('sass', function() {
     'loadPath': './bower_components/bootstrap-sass-twbs/assets/stylesheets/'
     }))
   .pipe(autoprefix('last 2 version'))
-  .pipe(rename({ suffix: '.min' }))
-  .pipe(minifycss())
+//  .pipe(rename({ suffix: '.min' }))
+//  .pipe(minifycss())
   .on('error', function (err) { console.log(err.message); })
   .pipe(gulp.dest(dest.css))
   .pipe(reload({stream:true}));
