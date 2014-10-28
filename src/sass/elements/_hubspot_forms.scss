@@ -1,0 +1,117 @@
+// Re-normalize the HS forms to match our styles.
+@mixin normalize-form-width($max-width:420px) {
+  // Hubspot form Elements show up at different widths when they
+  // are within zen-grids.
+
+  // Selects are the smallest, so we leave them alone,
+  // and shrink down the rest.
+  select {
+    max-width: $max-width;
+  }
+
+  // Inputs show up a little bigger, so we shrink them down.
+  $input-multiplier: .89;
+  $textarea-multiplier: .98;
+
+  textarea {
+    max-width: $max-width * $textarea-multiplier;
+  }
+
+  input {
+    &[type=text],
+    &[type=email],
+    &[type=url],
+    &[type=search],
+    &[type=tel],
+    &[type=password],
+    &[type=datetime] {
+      max-width: $max-width * $input-multiplier;
+    }
+  }
+}
+
+form.hs-form.stacked {
+  @include form-defaults(); // From _forms.scss.
+  @include normalize-form-width();
+  ::-webkit-input-placeholder {
+    color: $grey;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: $grey;
+  }
+  ::-moz-placeholder {  /* Firefox 19+ */
+    color: $grey;
+  }
+  :-ms-input-placeholder {
+    color: $grey;
+  }
+
+  label {
+    font-family: $base-font-family;
+    font-size: $p-font-size;
+    font-weight: 400;
+    color: $color-text;
+  }
+
+  span.hs-form-required {
+    color: $color-text;
+  }
+
+  input {
+    &[type=text],
+    &[type=email],
+    &[type=url],
+    &[type=search],
+    &[type=tel],
+    &[type=password],
+    &[type=datetime] {
+      @include text-input;
+      height: 22px;
+    }
+  }
+
+  input[type='submit'] {
+    @include button-primary;
+    font-family: $base-font-family;
+    // Reset shadows and radii using defaults.
+    box-shadow: 0px 0px $white;
+    text-shadow: 0px 0px 1px #aaaaaa;
+    @include border-radius();
+  }
+
+  select {
+    padding: 0px 10px;
+    height: 44px;
+    border: 0;
+  }
+
+  textarea {
+    width: 100%;
+  }
+
+  .email-validation {
+    color: $color-text-error;
+  }
+}
+
+footer#bottom {
+  div.hbspt-form form.hs-form.stacked {
+    max-width: 400px;
+  }
+
+  select {
+    box-shadow: 0px 2px 0px $off-white;
+  }
+}
+
+@-moz-document url-prefix() {
+  form.hs-form.stacked {
+    div.selectWrapper {
+      &::after {
+        border-radius: $default-border-radius - 2px;
+        height: 45px;
+        right: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+// Font
+@import url("//fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300|Open+Sans:700,400,300");
+
+// Font weights 
+$fw-sans-l: 300;
+$fw-sans-n: 400;
+$fw-sans-b: 700;
+
+// Headings
+h1,h2,h3,h4,h5,h6 {
+  @include headline();
+}
+.dividing-headline-off-white {
+  @include dividing-headline(darken($off-white-dark, 20%), $off-white);
+  margin: 2em 0;
+}
+.dividing-headline-white {
+  @include dividing-headline(darken($off-white-dark, 20%), $white);
+}
+
+// Semi-display text
+.hero {
+  @include hero-text();
+}
+.lead {
+  @include lead-text();
+}
+
+// regular text
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: $color-text;
+}
+p, ul, ol, li, a, table, summary, details, pre, blockquote, dl, dd, dt {
+  font-size: $p-font-size;
+}
+strong {
+  font-weight: 700;
+}
+small {
+  font-size: $base-font-size;
+}
+
+.pullquote{
+  @include hero-text;
+  color: $grey;
+  margin: 0;
+  &:before {
+    content: '“';
+  }
+  &:after {
+    content: '”';
+  }
+}
+// links
+a {
+  color: $color-text-link;
+  text-decoration: none;
+  @include transition();
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: $color-text-link-active;
+    outline: none;
+  }
+}
+
+// Code
+pre {
+  background: $off-white;
+  @include border-radius;
+  padding: 20px 30px;
+  @include transition(all);
+  line-height: 1em;
+  border-left: 3px solid $grey;
+  border-right: 10px solid $grey;
+  border-top: 1px solid $grey;
+  border-bottom: 1px solid $dark-grey;
+}

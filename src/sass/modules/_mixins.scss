@@ -1,0 +1,528 @@
+/* TODO
+  buttons: add conditional box shadows on buttons for dark backgrounds
+  toggles: rework mixin to account for a light or dark version
+  menus: rework mixin to accept args for background, border colors
+*/
+
+// Low level, highly reusable mixins -----------------
+@mixin transition( $type: all, $time: 0.1s ) {
+  -webkit-transition: $type $time;
+  -moz-transition:    $type $time;
+  -o-transition:      $type $time;
+  transition:         $type $time;
+}
+
+@mixin border-radius( $value: $default-border-radius ) {
+  -webkit-border-radius: $value;
+  -moz-border-radius:    $value;
+  -ms-border-radius:     $value;
+  -o-border-radius:      $value;
+  border-radius:         $value;
+}
+
+@mixin background-image( $image ) {
+  background-image: $image;
+}
+
+////////////////
+// Helper Mixins
+////////////////
+
+// mixin applied to grid container assigning direct div children
+// a grid width and position defined by $columns argument
+@mixin grid-cycle($columns) {
+  @include zen-grid-container();
+  $zen-column-count: $columns;
+  $zen-gutter-width: 20px;
+  @for $i from 1 through $columns {
+    >div:nth-child(#{$i}) {
+      @include zen-grid-item( 1, $i );
+      }
+  }
+}
+
+// Apply to containing elements to center and give the region
+// a consistent width (relative to the rest of the site's major
+// regions)
+@mixin centering {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1050px;
+}
+
+//////////////////
+// Image mixins //
+//////////////////
+@mixin grayscale-image {
+  filter:  url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+ */
+  filter: gray; /* IE5+ */
+  -webkit-filter: grayscale(1); /* Webkit Nightlies & Chrome Canary */
+}
+@mixin greyscale-image {
+  filter:  url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+ */
+  filter: gray; /* IE5+ */
+  -webkit-filter: grayscale(1); /* Webkit Nightlies & Chrome Canary */
+}
+// @mixin circular-image {
+//  @include border-radius( 100% );
+// }
+
+@mixin dark-background {
+  h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, blockquote {
+    color: $white;
+  }
+}
+
+// Pull an image to the right of some text and make sure it doesn't
+// get too wide.  Used on the blog!
+@mixin blog-image {
+  max-width: 40%;
+  padding-left: 30px;
+  float: right;
+}
+
+@mixin square-image($image-color:$white, $img-size:150px) {
+    // Set on an <a> outside of an image.
+    background: $image-color;
+    @include border-radius();
+    width: 100%;
+    display: block;
+    padding: 20px 0px;
+    text-align: center;
+    border-bottom: 3px solid $color-border-light-grey;
+    img {
+        width: $img-size;
+        height: $img-size;
+    }
+}
+
+
+// Typography
+@mixin headline {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 700;
+  color: $color-text-headline;
+}
+@mixin dividing-headline($line-color, $background-color) {
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 1px;
+  border-bottom: solid 1px $line-color;
+  /* adjust font size */
+  font-size: $h5-font-size;
+  /* pull the border up*/
+  height: 0.9em;
+  /* push the paragraph down */
+  margin-bottom: 1.4em;
+  /* line cover */
+  &:first-line{
+    background-color: $background-color;
+    padding-left: 4em;
+  }
+  /* additional padding */
+  &:before,
+  &:after{
+    content: '\00a0 \00a0 \00a0 \00a0 \00a0 \00a0';
+  }
+  @media (max-width: 400px) {
+    border-bottom: none;
+    &:before,
+    &:after {
+      content: none;
+    }
+  }
+}
+@mixin hero-text {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: $color-text-headline;
+  font-size: $hero-font-size;
+}
+@mixin lead-text {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: $color-text-headline;
+  line-height: 1.3333 * $base-line-height;
+  font-size: $lead-font-size;
+}
+@mixin hero-lead-text {
+  @include lead-text();
+  color: $white;
+}
+// Forms
+@mixin text-input {
+  @include border-radius;
+  border: none;
+  box-shadow: 0 1px 1px $black inset;
+  background: $off-white;
+  color: $grey;
+  padding: 0.75em 1.25em;
+}
+
+// Buttons
+@mixin button-primary {
+  @include transition($type: none, $time: 0);
+  font-size: $btn-font-size;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight:700;
+  color: $btn-primary-text;
+  padding: 0.7em 4em 0.75em;
+  display: inline-block;
+  border-radius: $default-border-radius;
+  background: $btn-primary-gradient-bottom;
+  @include background-image( $btn-primary-background );
+  border-bottom: 3px solid $btn-primary-border;
+  border-top: 3px solid $btn-primary-gradient-top;
+  border-right: none;
+  border-left: none;
+  &:after {
+    content: "\2192";
+    position: absolute;
+    margin-left: 20px;
+  }
+  &:hover {
+    background: $btn-primary-background-hover;
+    border-top: 3px solid $btn-primary-background-hover;
+  }
+  &:active {
+    border-top: 3px solid $btn-primary-border;
+    border-bottom: 3px solid $btn-primary-gradient-bottom;
+    @include background-image( $btn-primary-background-active );
+  }
+}
+
+@mixin button-secondary {
+  font-size: $btn-font-size;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight:700;
+  padding: 0.7em 4em 0.75em;
+  color: $btn-secondary-text;
+  display: inline-block;
+  border-radius: $default-border-radius;
+  background: $btn-secondary-background;
+  border: 1px solid $btn-secondary-border;
+  &:hover {
+    border: 1px solid $btn-secondary-border-hover;
+  }
+  &:active {
+    background: $btn-secondary-background-active;
+  }
+}
+@mixin button-strong {
+  @include transition($type: none, $time: 0);
+  font-size: $btn-font-size;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight:700;
+  color: $btn-strong-text;
+  padding: 0.7em 4em 0.75em;
+  display: inline-block;
+  border-radius: $default-border-radius;
+  background: $btn-strong-gradient-bottom;
+  @include background-image( $btn-strong-background );
+  border-bottom: 3px solid $btn-strong-border;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  &:hover {
+    background: $btn-strong-background-hover;
+  }
+  &:active {
+    border-bottom: none;
+    border-top: 3px solid $btn-strong-border-active;
+    @include background-image( $btn-strong-background-active );
+  }
+}
+
+@mixin button-disabled {
+  font-size: $btn-font-size;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight:700;
+  color: $btn-disabled-text;
+  padding: 1em 4em;
+  display: inline-block;
+  border-radius: $default-border-radius;
+  background: $btn-disabled-gradient-bottom;
+  @include background-image( $btn-disabled-background );
+  border-bottom: 3px solid $btn-disabled-border;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+
+// Toggle Links
+@mixin toggle-links-light { // apply to <ul> element
+  display: inline-block;
+  @include border-radius;
+  overflow: hidden;
+  @include horizontal-list;
+  li {
+    margin: 0;
+    padding: 0;
+    white-space: normal;
+    text-align: center;
+    border-bottom: 1px solid $tl-border;
+    border-top: 1px solid $white;
+  }
+  a {
+    width: 190px;
+    height: 55px;
+    @include background-image( $tl-background );
+    padding: 1em 0.25em;
+    display: table-cell;
+    vertical-align: middle;
+    text-decoration: none;
+    color: $white;
+    border-left: 1px solid $tl-link-border;
+    border-right: 1px solid transparent;
+    &:hover {
+      @include background-image( $tl-background-hover );
+    }
+    &:active, &.active {
+      @include background-image( $tl-background-active );
+      border-left: 1px solid $tl-link-border-active;
+      border-right: 1px solid $tl-link-border-active;
+    }
+  }
+  li:first-child a {
+    border-left:1px solid transparent;
+  }
+}
+
+@mixin toggle-links-dark{ // apply to <ul> element
+  display: inline-block;
+  @include border-radius;
+  overflow: hidden;
+  @include horizontal-list;
+  li {
+    margin: 0;
+    padding: 0;
+    white-space: normal;
+    text-align: center;
+    border-bottom: 1px solid $tl-dark-border;
+    border-top: 1px solid hsla(205,12%,41%,1);
+  }
+  a {
+    width: 190px;
+    height: 55px;
+    @include background-image( $tl-dark-background );
+    padding: 1em 0.25em;
+    display: table-cell;
+    vertical-align: middle;
+    text-decoration: none;
+    color: $white;
+    border-left: 1px solid $tl-dark-link-border;
+    border-right: 1px solid transparent;
+    &:hover {
+      @include background-image( $tl-dark-background-hover );
+    }
+    &:active, &.active {
+      @include background-image( $tl-dark-background-active );
+      border-left: 1px solid $tl-dark-link-border-active;
+      border-right: 1px solid $tl-dark-link-border-active;
+    }
+  }
+  li:first-child a {
+    border-left:1px solid transparent;
+  }
+}
+
+// Menu Items
+
+@mixin button( $text-color, $background-color, $hover-text-color, $hover-background-color ) {
+  color: $text-color;
+  @include transition( $type: none, $time: 0 );
+  @include border-radius;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.75 * $base-font-size;
+  line-height: 2.5em;
+  display: block;
+  padding: 0 0.75em;
+  font-weight: 700;
+  background: $background-color;
+  &.active, &.active-trail, &:hover {
+    color: $hover-text-color;
+    background: $hover-background-color;
+    text-decoration: none;
+  }
+}
+
+@mixin vertical-menu {
+  margin: 1em 0;
+  padding: 0 ;
+  @include no-bullets;
+  li {
+    margin:0 0 0.5em 0;
+    padding:0;
+    a {
+      @include button( $grey, $white, $grey, $off-white );
+      line-height: 1.5em;
+      padding: 0.75em;
+    }
+  }
+}
+
+@mixin horizontal-menu {
+  ul {
+    margin: 1em 0;
+    padding: 0;
+    text-align: right;
+    li {
+      margin:0;
+      padding:0;
+      vertical-align: top;
+      overflow: visible;
+      text-align: center;
+      a.dropdown:after {
+        content: " \25BC";
+        font-size: 8px;
+        position: relative;
+        top: -2px;
+        left: 2px;
+      }
+      a {
+        @include button( $grey, $off-white, $grey, $white );
+        border: 1px solid $off-white;
+        &:hover, &.active, &.active-trail {
+          border: 1px solid $off-white-dark;
+          &:after {
+            color: $color-text-link;
+          }
+        }
+      }
+      ul {
+        padding: 0;
+        text-align: center;
+        @include border-radius;
+        border: 5px solid hsla(197,13%,89%,1);
+        background: $white;
+        width: 200px;
+        position: absolute;
+        margin-left: -30px;
+        margin-top: 15px;
+        z-index: 10;
+        &:after, &:before {
+          bottom: 100%;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+        }
+        &:after {
+          border-color: rgba(255, 255, 255, 0);
+          border-bottom-color: #ffffff;
+          border-width: 14px;
+          left: 50%;
+          margin-left: -14px;
+        }
+        &:before {
+          border-color: rgba(223, 229, 231, 0);
+          border-bottom-color: #DFE5E7;
+          border-width: 22px;
+          left: 50%;
+          margin-left: -22px;
+          @include border-radius;
+        }
+        li {
+          display: block;
+          width: auto;
+          border-top: 1px solid $off-white;
+          &:first-child {
+            border-top: none;
+          }
+          a {
+            @include button( $grey, $white, $grey, $off-white );
+            @include border-radius(0px);
+            border: none;
+            text-transform: capitalize;
+            font-weight: 400;
+            letter-spacing: 0;
+            padding: 10px 0;
+            &:hover, &.active, &.active-trail {
+              border: none;
+            }
+            &:active {
+              background: darken( $off-white, 10% );
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// Mixins with no home
+
+@mixin hello-promo() {
+  // Put on any .wrapper that has a #hello-promo in it.
+  background-color: $off-white;
+  padding-top: 0;
+  padding-bottom: 10px;
+  #hello-promo {
+    text-align: center;
+    background-color: $blue;
+    @include box-shadow(0px 2px 5px 5px #ccc);
+    padding: 40px 0px;
+  }
+}
+// Mixins from Drupal Defaults
+// element-invisible as defined by http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+@mixin element-invisible {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+    clip: rect(1px 1px 1px 1px); // IE6 and IE7 use the wrong syntax.
+  }
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+// Turns off the element-invisible effect.
+@mixin element-invisible-off {
+  position: static !important;
+  clip: auto;
+  height: auto;
+  width: auto;
+  overflow: auto;
+}
+
+@mixin element-focusable {
+  @include element-invisible;
+
+  &:active,
+  &:focus {
+    @include element-invisible-off;
+  }
+}
+
+// The word "Unpublished" displayed underneath unpublished nodes and comments.
+@mixin unpublished-div {
+  height: 0;
+  overflow: visible;
+  color: #d8d8d8;
+  font-size: 75px;
+  line-height: 1;
+  font-family: Impact, "Arial Narrow", Helvetica, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  word-wrap: break-word; // A very nice CSS3 property
+
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+    .lt-ie8 &>* {
+      position: relative; // Otherwise these elements will appear below the "Unpublished" text.
+    }
+  }
+}

@@ -1,0 +1,16 @@
+$border-radius-sharp: 3px;
+$default-border-radius: 5px;
+$border-radius-default: $default-border-radius;
+$border-radius-broad: 7px;
+
+$default-transition-property: all;
+$default-transition-duration: 0.1s;
+$default-transition-function: false;
+$default-transition-delay: false;
+
+$zen-gutter-width: 40px;
+
+$vertical-spacing: 2 * $base-font-size;
+
+$standard-vertical-margin: 30px;
+$big-vertical-margin: $standard-vertical-margin * 2;

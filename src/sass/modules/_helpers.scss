@@ -1,0 +1,15 @@
+.hide {
+  display: none;
+}
+.hidden {
+  visibility: hidden;
+}
+.stuck {
+  position: fixed;
+}
+a.twitter {
+  display: inline-block;
+  height: 31px;
+  width: 31px;
+  background: url('/icons/twitter.png');
+}

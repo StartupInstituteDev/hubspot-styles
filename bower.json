@@ -1,9 +1,9 @@
 {
   "name": "blank-slate",
   "version": "0.0.0",
-  "homepage": "https://github.com/paulnorthup/gulp-proto",
+  "homepage": "https://github.com/startupinstituteDev/hubspot-styles",
   "authors": [
-    "Paul <paul@paulnorthup.com>"
+    "Brian Dant <brian@startupinstute.com>"
   ],
   "license": "MIT",
   "private": true,
@@ -15,7 +15,6 @@
     "tests"
   ],
   "devDependencies": {
-    "normalize.css": "~3.0.2",
-    "bootstrap-sass-twbs": "~3.2.0+2"
+    "normalize.css": "~3.0.2"
   }
 }

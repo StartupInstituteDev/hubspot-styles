@@ -1,5 +1,53 @@
-@import "bootstrap";
+/********************************
+* Startup Institute Core Styles *
+********************************/
 
-body {
-  background-color: blue;
+// Import Variables
+@import "variables/normalize-vars";
+@import "variables/colors";
+@import "variables/display-variables";
+
+// Custom Functions and Mixins
+@import "modules/functions";
+@import "modules/mixins";
+
+// Typography
+@import "modules/typography";
+
+// Helper classes
+@import "modules/helpers";
+
+// Elements
+@import "elements/forms";
+@import "elements/hubspot_forms";
+@import "elements/accessories";
+
+/*Layout*/
+
+.wrap {
+	width: 100%;
+}
+
+.column_1_of_2, .column_2_of_2 {
+	float: left;
+	width: 50%;
+}
+
+/*Proof points*/
+
+.column-1-of-3, .column-2-of-3, .column-3-of-3 {
+	width: 33.3%;
+	float: left;
+}
+
+@media (max-width: 400px) {
+  .column_1_of_2, .column_2_of_2 {
+    float: none;
+    width: 100%;
+  }
+
+  .column-1-of-3, .column-2-of-3, .column-3-of-3 {
+	width: 100%;
+	float: none;
+  }
 }

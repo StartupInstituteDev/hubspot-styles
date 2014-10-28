@@ -1,0 +1,110 @@
+// Two-tier color variable system
+
+/* color definitions */
+/* hsl* is deprecated.  Use $color- vars below for all new development */
+$white: hsla(0,0%,100%,1);
+$black: #111;
+$off-white: hsla(200,13%,95%,1);
+$off-white-dark: hsla(192,9%,89%,1);
+$blue: hsla(200,100%,40%,1);
+$grey: hsla(203,18%,36%,1);
+$dark-grey: hsla(203,18%,25%,1);
+$black: hsla(206,17%,10%,1);
+$orangered: hsla(7,100%,64%,1);
+$orangered-dark: hsla(7,77%,27%,1);
+
+$color-black: rgb(0,0,0);
+$color-blue: rgb(0,135,204);
+$color-dark-grey: rgb(52,66,75);
+$color-gray: rgb(75,95,108);
+$color-grey: $color-gray;
+$color-off-white: rgb(240,242,243);
+$color-off-white-dark: rgb(224,228,229);
+$color-white: rgb(255,255,255);
+$color-orangered: rgb(255,92,71);
+$color-orangered-dark: rgb(121,28,15);
+
+/* Use descriptive variable names */
+
+// text
+$color-text: $grey; /* alt:  hsla(203,12%,35%,1) */
+$color-text-light: lighten($color-text, 20%);
+$color-text-headline: $grey;
+$color-text-lead: $grey;
+$color-text-link: #3ca3da;
+$color-text-link-hover: $dark-grey;
+$color-text-link-active: $grey;
+
+// form validation
+$color-text-error: $orangered-dark;
+$color-input-error: $orangered;
+
+// borders
+$color-border-light-grey: hsl(201, 13%, 75%);
+$color-border-light-gray: $color-border-light-grey;
+
+
+//background
+$color-background-primary: $color-white;
+$color-background-secondary: $color-off-white;
+$color-background-primary-dark: $color-dark-grey;
+$color-background-secondary-dark: $color-grey;
+$color-background-accent: $color-orangered;
+
+// buttons
+$btn-primary-text: $white;
+$btn-primary-gradient-top: #41b0ec;
+$btn-primary-gradient-bottom: #3ca3da;
+$btn-primary-background: linear-gradient( $btn-primary-gradient-top, $btn-primary-gradient-bottom );
+$btn-primary-background-hover: #4dc1ff;
+$btn-primary-background-active: linear-gradient( $btn-primary-gradient-top, $btn-primary-gradient-bottom );
+$btn-primary-border: #2a84b4;
+$btn-primary-border-active: #2f98d0;
+
+$btn-secondary-text: $grey;
+$btn-secondary-background: #f3f4f5;
+$btn-secondary-background-active: #e0e4e5;
+$btn-secondary-border: #dbdbdb;
+$btn-secondary-border-hover: #c2c2c2;
+
+$btn-strong-text: $white;
+$btn-strong-gradient-top: #ff5c46;
+$btn-strong-gradient-bottom: #cc4837;
+$btn-strong-background: linear-gradient( $btn-strong-gradient-top, $btn-strong-gradient-bottom );
+$btn-strong-background-hover: #ff5c46;
+$btn-strong-background-active: linear-gradient( $btn-strong-gradient-top, $btn-strong-gradient-bottom );
+$btn-strong-border: #82291d;
+$btn-strong-border-active: #c24535;
+
+$btn-disabled-text: $white;
+$btn-disabled-gradient-top: $off-white-dark;
+$btn-disabled-gradient-bottom: darken($off-white-dark, 5%);
+$btn-disabled-background: linear-gradient( $btn-disabled-gradient-top, $btn-disabled-gradient-bottom );
+$btn-disabled-border: darken($off-white-dark, 10%);
+
+// Toggle Links
+$tl-border: #196B9A;
+$tl-link-border: #22729F;
+$tl-link-border-active: hsla(204,19%,26%,1);
+$tl-background-light: #43b2ed;
+$tl-background-dark: #1990cd;
+$tl-background-hover-light: #47bfff;
+$tl-background-hover-dark: #1ca2e5;
+$tl-background-active-light: #445763;
+$tl-background-active-dark: #34424b;
+$tl-background: linear-gradient( $tl-background-light, $tl-background-dark );
+$tl-background-hover: linear-gradient( $tl-background-hover-light, $tl-background-hover-dark );
+$tl-background-active: linear-gradient( $tl-background-active-light, $tl-background-active-dark );
+
+$tl-dark-border: hsla(204,18%,16%,1);
+$tl-dark-link-border: hsla(204,18%,16%,1);
+$tl-dark-link-border-active: hsla(203,28%,16%,1);
+$tl-dark-background-light: #445763;
+$tl-dark-background-dark: #34424b;
+$tl-dark-background-hover-light: lighten( $tl-dark-background-light, 5% );
+$tl-dark-background-hover-dark: lighten( $tl-dark-background-dark, 5% );
+$tl-dark-background-active-light: hsla(203,28%,16%,1) ;
+$tl-dark-background-active-dark: hsla(205,18%,19%,1);
+$tl-dark-background: linear-gradient( $tl-dark-background-light, $tl-dark-background-dark );
+$tl-dark-background-hover: linear-gradient( $tl-dark-background-hover-light, $tl-dark-background-hover-dark );
+$tl-dark-background-active: linear-gradient( $tl-dark-background-active-light, $tl-dark-background-active-dark );
